@@ -10,6 +10,10 @@ let package = Package(
         .library(name: "SwiftValidator", targets: ["SwiftValidator"])
     ],
     targets: [
-        .target(name: "SwiftValidator")
+        .target(name: "SwiftValidator"),
+        .testTarget(
+            name: "SwiftValidatorTests",
+            dependencies: ["SwiftValidator"]
+        ),
     ]
 )
