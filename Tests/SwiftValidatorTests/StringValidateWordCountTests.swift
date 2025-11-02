@@ -13,8 +13,8 @@ struct StringValidateWordCountTests {
 
     // MARK: - Valid Cases
 
-    @Test("Validates string with exact word count")
-    func testValidatesExactWordCount() {
+    @Test
+    func `Validates string with exact word count`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(validator.validate("hello world"))
@@ -22,8 +22,8 @@ struct StringValidateWordCountTests {
         #expect(validator.validate("swift testing"))
     }
 
-    @Test("Validates single word")
-    func testValidatesSingleWord() {
+    @Test
+    func `Validates single word`() {
         let validator = StringValidateWordCount(wordCount: 1, message: nil)
 
         #expect(validator.validate("hello"))
@@ -31,16 +31,16 @@ struct StringValidateWordCountTests {
         #expect(validator.validate("test"))
     }
 
-    @Test("Validates multiple words")
-    func testValidatesMultipleWords() {
+    @Test
+    func `Validates multiple words`() {
         let validator = StringValidateWordCount(wordCount: 3, message: nil)
 
         #expect(validator.validate("one two three"))
         #expect(validator.validate("hello world again"))
     }
 
-    @Test("Validates five words")
-    func testValidatesFiveWords() {
+    @Test
+    func `Validates five words`() {
         let validator = StringValidateWordCount(wordCount: 5, message: nil)
 
         #expect(validator.validate("this is a test string"))
@@ -49,24 +49,24 @@ struct StringValidateWordCountTests {
 
     // MARK: - Invalid Cases - Wrong Word Count
 
-    @Test("Rejects string with fewer words")
-    func testRejectsFewerWords() {
+    @Test
+    func `Rejects string with fewer words`() {
         let validator = StringValidateWordCount(wordCount: 3, message: nil)
 
         #expect(!validator.validate("hello world"))
         #expect(!validator.validate("one"))
     }
 
-    @Test("Rejects string with more words")
-    func testRejectsMoreWords() {
+    @Test
+    func `Rejects string with more words`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(!validator.validate("hello world test"))
         #expect(!validator.validate("one two three four"))
     }
 
-    @Test("Rejects empty string when word count is positive")
-    func testRejectsEmptyString() {
+    @Test
+    func `Rejects empty string when word count is positive`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(!validator.validate(""))
@@ -74,24 +74,24 @@ struct StringValidateWordCountTests {
 
     // MARK: - Invalid Cases - Leading/Trailing Spaces
 
-    @Test("Rejects string with leading space")
-    func testRejectsLeadingSpace() {
+    @Test
+    func `Rejects string with leading space`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(!validator.validate(" hello world"))
         #expect(!validator.validate("  hello world"))
     }
 
-    @Test("Rejects string with trailing space")
-    func testRejectsTrailingSpace() {
+    @Test
+    func `Rejects string with trailing space`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(!validator.validate("hello world "))
         #expect(!validator.validate("hello world  "))
     }
 
-    @Test("Rejects string with both leading and trailing spaces")
-    func testRejectsLeadingAndTrailingSpaces() {
+    @Test
+    func `Rejects string with both leading and trailing spaces`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(!validator.validate(" hello world "))
@@ -100,16 +100,16 @@ struct StringValidateWordCountTests {
 
     // MARK: - Invalid Cases - Multiple Spaces
 
-    @Test("Rejects string with double spaces")
-    func testRejectsDoubleSpaces() {
+    @Test
+    func `Rejects string with double spaces`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(!validator.validate("hello  world"))
         #expect(!validator.validate("hello   world"))
     }
 
-    @Test("Rejects string with multiple spaces between words")
-    func testRejectsMultipleSpacesBetweenWords() {
+    @Test
+    func `Rejects string with multiple spaces between words`() {
         let validator = StringValidateWordCount(wordCount: 3, message: nil)
 
         #expect(!validator.validate("one  two three"))
@@ -119,16 +119,16 @@ struct StringValidateWordCountTests {
 
     // MARK: - Edge Cases
 
-    @Test("Rejects string with only spaces")
-    func testRejectsOnlySpaces() {
+    @Test
+    func `Rejects string with only spaces`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(!validator.validate("   "))
         #expect(!validator.validate(" "))
     }
 
-    @Test("Validates words with special characters")
-    func testValidatesWordsWithSpecialCharacters() {
+    @Test
+    func `Validates words with special characters`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(validator.validate("hello! world?"))
@@ -138,8 +138,8 @@ struct StringValidateWordCountTests {
 
     // MARK: - Equality Tests
 
-    @Test("Checks equality of validators")
-    func testValidatorEquality() {
+    @Test
+    func `Checks equality of validators`() {
         let validator1 = StringValidateWordCount(wordCount: 2, message: nil)
         let validator2 = StringValidateWordCount(wordCount: 2, message: nil)
         let validator3 = StringValidateWordCount(wordCount: 3, message: nil)
@@ -152,22 +152,22 @@ struct StringValidateWordCountTests {
 
     // MARK: - Properties Tests
 
-    @Test("Has correct code property")
-    func testCodeProperty() {
+    @Test
+    func `Has correct code property`() {
         let validator = StringValidateWordCount(wordCount: 2, message: nil)
 
         #expect(validator.code == "word_count")
     }
 
-    @Test("Has correct wordCount property")
-    func testWordCountProperty() {
+    @Test
+    func `Has correct wordCount property`() {
         let validator = StringValidateWordCount(wordCount: 5, message: "custom message")
 
         #expect(validator.wordCount == 5)
     }
 
-    @Test("Has correct message property")
-    func testMessageProperty() {
+    @Test
+    func `Has correct message property`() {
         let validatorWithoutMessage = StringValidateWordCount(wordCount: 2, message: nil)
         let validatorWithMessage = StringValidateWordCount(wordCount: 2, message: "custom error")
 
