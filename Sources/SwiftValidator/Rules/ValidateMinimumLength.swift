@@ -12,7 +12,7 @@ public class ValidateMinimumLength<Value: Collection>: ValidatableRule {
     public let length: Int
     public let message: String?
 
-    public init(length: Int, message: String?) {
+    public init(length: Int, message: String? = nil) {
         self.length = length
         self.message = message
     }

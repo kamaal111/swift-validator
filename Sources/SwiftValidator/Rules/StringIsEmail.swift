@@ -11,7 +11,7 @@ public class StringIsEmail: ValidatableRule, StringValidatableRule {
     public let code = "email_string"
     public let message: String?
 
-    public init(message: String?) {
+    public init(message: String? = nil) {
         self.message = message
     }
 
