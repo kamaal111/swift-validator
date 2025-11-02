@@ -12,7 +12,7 @@ public class StringValidateWordCount: StringValidatableRule {
     public let wordCount: Int
     public let message: String?
 
-    public init(wordCount: Int, message: String?) {
+    public init(wordCount: Int, message: String? = nil) {
         assert(wordCount >= 1)
 
         self.wordCount = wordCount

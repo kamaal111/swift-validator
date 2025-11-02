@@ -10,7 +10,7 @@ public class ValidateIsSameValue<Value: Equatable>: ValidatableRule {
     public let value: Value
     public let message: String?
 
-    public init(value: Value, message: String?) {
+    public init(value: Value, message: String? = nil) {
         self.value = value
         self.message = message
     }
