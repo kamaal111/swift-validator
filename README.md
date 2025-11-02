@@ -144,6 +144,20 @@ let isValid = rule.validate("Hello") // true
 let isInvalid = rule.validate("") // false
 ```
 
+#### Numeric String Validation
+
+```swift
+let rule = StringIsNumeric()
+let isValid = rule.validate("123") // true
+let isValidDecimal = rule.validate("123.45") // true
+let isValidNegative = rule.validate("-42") // true
+let isInvalid = rule.validate("abc") // false
+
+// With custom locale for different decimal separators
+let germanRule = StringIsNumeric(locale: Locale(identifier: "de_DE"))
+let isValidGerman = germanRule.validate("123,45") // true (comma as decimal separator)
+```
+
 ### Composing Multiple Validators
 
 Use `StringValidator` to validate a string against multiple rules:
@@ -310,6 +324,22 @@ Validates that a string contains an exact number of words with strict spacing ru
   - `wordCount`: The exact number of words required
   - `message`: Optional custom error message
 - **Returns:** `true` if the string contains exactly the specified number of words
+
+#### `StringIsNumeric`
+
+Validates that a string contains only numeric characters and represents a valid numeric value.
+
+- **Valid numeric formats:**
+  - Positive and negative integers (e.g., "123", "-456")
+  - Decimal numbers (e.g., "123.45", ".75")
+  - Numbers in scientific notation (e.g., "1e10", "2.5e-3")
+  - Leading/trailing whitespace is considered invalid
+
+- **Parameters:**
+  - `message`: Optional custom error message
+  - `locale`: The locale to use for number parsing. Defaults to `en_US_POSIX` for consistent parsing.
+              Can be customized to support different decimal separators (e.g., comma vs. period).
+- **Returns:** `true` if the string represents a valid numeric value according to the locale
 
 ### Validators
 
