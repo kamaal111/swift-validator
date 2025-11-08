@@ -49,11 +49,11 @@ public class StringIsNumeric: ValidatableRule, StringValidatableRule {
     /// Creates a new validation rule to check if a string is numeric.
     ///
     /// - Parameters:
-    ///   - message: An optional custom error message to display when validation fails.
-    ///              Defaults to `nil`.
     ///   - locale: The locale to use for number parsing. Defaults to `en_US_POSIX` for consistent
     ///             parsing across different system locales.
-    public init(message: String? = nil, locale: Locale = Locale(identifier: "en_US_POSIX")) {
+    ///   - message: An optional custom error message to display when validation fails.
+    ///              Defaults to `nil`.
+    public init(locale: Locale = Locale(identifier: "en_US_POSIX"), message: String? = nil) {
         self.message = message
         self.locale = locale
     }
