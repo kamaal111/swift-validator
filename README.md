@@ -16,6 +16,7 @@ A flexible and type-safe validation framework for Swift that provides a protocol
       - [String Minimum Length](#string-minimum-length)
       - [String Value Equality](#string-value-equality)
       - [String Not Empty](#string-not-empty)
+      - [Numeric String Validation](#numeric-string-validation)
     - [Composing Multiple Validators](#composing-multiple-validators)
     - [Custom Error Messages](#custom-error-messages)
   - [API Reference](#api-reference)
@@ -33,6 +34,7 @@ A flexible and type-safe validation framework for Swift that provides a protocol
       - [`StringIsTheSameValue`](#stringisthesamevalue)
       - [`StringValidateMinimumLength`](#stringvalidateminimumlength)
       - [`StringValidateWordCount`](#stringvalidatewordcount)
+      - [`StringIsNumeric`](#stringisnumeric)
     - [Validators](#validators)
       - [`StringValidator`](#stringvalidator)
   - [Creating Custom Validation Rules](#creating-custom-validation-rules)
@@ -146,6 +148,8 @@ let isInvalid = rule.validate("") // false
 
 #### Numeric String Validation
 
+Validate numeric strings with optional comparison operations:
+
 ```swift
 let rule = StringIsNumeric()
 let isValid = rule.validate("123") // true
@@ -156,6 +160,21 @@ let isInvalid = rule.validate("abc") // false
 // With custom locale for different decimal separators
 let germanRule = StringIsNumeric(locale: Locale(identifier: "de_DE"))
 let isValidGerman = germanRule.validate("123,45") // true (comma as decimal separator)
+
+// With comparison options - validate that a numeric value meets a condition
+let comparison = StringIsNumeric.Comparison(op: .greaterThan, value: 10)
+let options = StringIsNumeric.Options(comparison: comparison)
+let comparisonRule = StringIsNumeric(options: options)
+
+comparisonRule.validate("15")  // true (15 > 10)
+comparisonRule.validate("5")   // false (5 is not > 10)
+comparisonRule.validate("abc") // false (not numeric)
+
+// Available comparison operators:
+// .greaterThan              - value must be > comparison value
+// .greaterThanOrEqualTo     - value must be >= comparison value
+// .lessThan                 - value must be < comparison value
+// .lessThanOrEqualTo        - value must be <= comparison value
 ```
 
 ### Composing Multiple Validators
@@ -327,7 +346,7 @@ Validates that a string contains an exact number of words with strict spacing ru
 
 #### `StringIsNumeric`
 
-Validates that a string contains only numeric characters and represents a valid numeric value.
+Validates that a string contains only numeric characters and represents a valid numeric value. Optionally validates that the numeric value meets a comparison condition.
 
 - **Valid numeric formats:**
   - Positive and negative integers (e.g., "123", "-456")
@@ -338,8 +357,29 @@ Validates that a string contains only numeric characters and represents a valid 
 - **Parameters:**
   - `locale`: The locale to use for number parsing. Defaults to `en_US_POSIX` for consistent parsing.
               Can be customized to support different decimal separators (e.g., comma vs. period).
+  - `options`: Optional validation options for numeric comparison. Contains an optional `Comparison` instance.
   - `message`: Optional custom error message
-- **Returns:** `true` if the string represents a valid numeric value according to the locale
+
+- **Nested Types:**
+  - `ComparisonOperator`: Enum with cases `.greaterThan`, `.greaterThanOrEqualTo`, `.lessThan`, `.lessThanOrEqualTo`
+  - `Comparison`: Struct with `op: ComparisonOperator` and `value: Double` for defining comparison rules
+  - `Options`: Struct with `comparison: Comparison?` for configuring validation behavior
+
+- **Returns:** `true` if the string represents a valid numeric value according to the locale and passes any comparison checks
+
+- **Examples:**
+  ```swift
+  // Basic numeric validation
+  let rule = StringIsNumeric()
+  rule.validate("123")  // true
+  
+  // With comparison
+  let comparison = StringIsNumeric.Comparison(op: .greaterThanOrEqualTo, value: 18)
+  let options = StringIsNumeric.Options(comparison: comparison)
+  let ageRule = StringIsNumeric(options: options)
+  ageRule.validate("21")  // true (21 >= 18)
+  ageRule.validate("16")  // false (16 < 18)
+  ```
 
 ### Validators
 

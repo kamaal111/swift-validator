@@ -46,8 +46,13 @@
 ## Agent-Specific Instructions
 - Git operations are human-only: do not run `git` commands; the maintainer handles branching, commits, and PRs.
 - Tests are mandatory for every change; keep the suite green with `swift test` (compiles + runs tests).
-- Don’t hand-format code: run `swift format --in-place --recursive Sources Tests` and rely on `.swift-format`. To lint (check formatting without modifying files), use `swift-format lint --recursive Sources Tests` if you have the `swift-format` tool installed.
+- Don't hand-format code: run `swift format --in-place --recursive Sources Tests` and rely on `.swift-format`. To lint (check formatting without modifying files), use `swift-format lint --recursive Sources Tests` if you have the `swift-format` tool installed.
 - Keep changes focused and minimal; avoid unrelated refactors.
+- **Always update the README.md** when adding new features, rules, or changing public APIs. This includes:
+  - Adding usage examples in the "Usage" section for new rules/features
+  - Updating the API Reference section with complete parameter and return value documentation
+  - Adding entries to the table of contents for new sections
+  - Ensuring code examples are accurate and follow the current API design
 
 ## Security & Configuration Tips
 - Locale-sensitive logic: prefer deterministic defaults (e.g., `en_US_POSIX`) and test alternative locales explicitly.
