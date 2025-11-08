@@ -13,7 +13,7 @@ import Testing
 struct StringIsNumericTests {
     @Test
     func `Validates positive integers`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(rule.validate("0"))
         #expect(rule.validate("1"))
@@ -23,7 +23,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Validates negative integers`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(rule.validate("-1"))
         #expect(rule.validate("-123"))
@@ -32,7 +32,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Validates decimal numbers`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(rule.validate("0.5"))
         #expect(rule.validate("123.45"))
@@ -42,7 +42,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Validates numbers with leading decimal point`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(rule.validate(".5"))
         #expect(rule.validate(".123"))
@@ -50,7 +50,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Validates scientific notation`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(rule.validate("1e10"))
         #expect(rule.validate("2.5e-3"))
@@ -59,14 +59,14 @@ struct StringIsNumericTests {
 
     @Test
     func `Rejects empty string`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(!rule.validate(""))
     }
 
     @Test
     func `Rejects strings with letters`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(!rule.validate("abc"))
         #expect(!rule.validate("123abc"))
@@ -76,7 +76,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Rejects strings with special characters`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(!rule.validate("123!"))
         #expect(!rule.validate("@123"))
@@ -86,7 +86,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Rejects strings with spaces`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(!rule.validate(" 123"))
         #expect(!rule.validate("123 "))
@@ -96,7 +96,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Rejects strings with multiple decimal points`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(!rule.validate("1.2.3"))
         #expect(!rule.validate("12..34"))
@@ -104,7 +104,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Rejects strings with multiple negative signs`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(!rule.validate("--123"))
         #expect(!rule.validate("-12-34"))
@@ -112,7 +112,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Rejects non-numeric strings`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(!rule.validate("hello"))
         #expect(!rule.validate("test123"))
@@ -122,7 +122,7 @@ struct StringIsNumericTests {
 
     @Test
     func `Validates zero variations`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
 
         #expect(rule.validate("0"))
         #expect(rule.validate("0.0"))
@@ -131,13 +131,13 @@ struct StringIsNumericTests {
 
     @Test
     func `Has correct code property`() async throws {
-        let rule = StringIsNumeric(message: nil)
+        let rule = StringIsNumeric()
         #expect(rule.code == "numeric_string")
     }
 
     @Test
     func `Has correct message property`() async throws {
-        let ruleWithoutMessage = StringIsNumeric(message: nil)
+        let ruleWithoutMessage = StringIsNumeric()
         #expect(ruleWithoutMessage.message == nil)
 
         let ruleWithMessage = StringIsNumeric(message: "Must be numeric")

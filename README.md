@@ -336,9 +336,9 @@ Validates that a string contains only numeric characters and represents a valid 
   - Leading/trailing whitespace is considered invalid
 
 - **Parameters:**
-  - `message`: Optional custom error message
   - `locale`: The locale to use for number parsing. Defaults to `en_US_POSIX` for consistent parsing.
               Can be customized to support different decimal separators (e.g., comma vs. period).
+  - `message`: Optional custom error message
 - **Returns:** `true` if the string represents a valid numeric value according to the locale
 
 ### Validators
